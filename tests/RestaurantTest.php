@@ -1,8 +1,20 @@
 <?php
+
+    /**
+    * @backupGlobals disabled
+    * @backupStaticAttributes disabled
+    */
+
     require_once __DIR__.'/../src/Restaurant.php';
+
+    $server = 'mysql:host=localhost:8889;dbname=best_restaurants_test';
+    $username = 'root';
+    $password = 'root';
+    $DB = new PDO($server, $username, $password);
 
     class NewRestaurantTest extends PHPUnit_Framework_TestCase
     {
+        //Getter Tests
         function test_getId()
         {
             $id = 3;
@@ -29,7 +41,7 @@
             $this->assertEquals('dots', $result);
         }
 
-        function test_Price()
+        function test_getPrice()
         {
             $id = 3;
             $name = 'dots';
@@ -51,7 +63,7 @@
             $this->assertEquals('$$', $result);
         }
 
-        function test_Quadrant()
+        function test_getQuadrant()
         {
             $id = 3;
             $name = 'dots';
@@ -63,7 +75,46 @@
 
             $this->assertEquals('SE', $result);
         }
+        //End Getter Tests
 
+        function test_addRestaurant()
+        {
+            $id = null;
+            $name = 'dots';
+            $price = 2;
+            $location = 'SE';
+            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+
+            $test_Restaurant->addRestaurant();
+
+            $result_array = array();
+            array_push($result_array, $test_Restaurant);
+            $getAll_array = Restaurant::getAllRestaurants();
+            $this->assertEquals($getAll_array[0], $result_array[0]);
+        }
+
+        function test_deleteRestaurants()
+        {
+            $id = null;
+            $name = 'dots';
+            $price = 2;
+            $location = 'SE';
+            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+            $test_Restaurant->addRestaurant();
+
+            $id2 = null;
+            $name2 = 'jam';
+            $price2 = 1;
+            $location2 = 'SE';
+            $test_Restaurant2 = new Restaurant($id, $name, $price, $location);
+            $test_Restaurant2->addRestaurant();
+
+            Restaurant::deleteAllRestaurants();
+
+            $getAll_array = Restaurant::getAllRestaurants();
+            $this->assertEquals([], $getAll_array);
+
+        }
 
     }
 ?>

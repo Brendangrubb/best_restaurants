@@ -13,7 +13,7 @@
             $this->price = $price;
             $this->quadrant = $quadrant;
         }
-        //ID getter
+        // ID getter
         function getId()
         {
             return $this->id;
@@ -48,6 +48,35 @@
         {
             return $this->quadrant;
         }
+
+        function addRestaurant()
+        {
+            $GLOBALS['DB']->exec("INSERT INTO restaurants (name, price, quadrant) VALUES ('{$this->getName()}', {$this->getPrice()}, '{$this->getQuadrant()}');");
+            $this->id = $GLOBALS['DB']->lastInsertID();
+        }
+
+        static function getAllRestaurants()
+        {
+            $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants;");
+            $all_restaurants = array();
+
+            foreach ($returned_restaurants as $restaurant) {
+                $id = $restaurant['id'];
+                $name = $restaurant['name'];
+                $price = $restaurant['price'];
+                $quadrant = $restaurant['quadrant'];
+                $new_restaurant = new Restaurant($id, $name, $price, $quadrant);
+
+                array_push($all_restaurants, $new_restaurant);
+            }
+            return $all_restaurants;
+        }
+
+        static function deleteAllRestaurants()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM restaurants;");
+        }
+
     }
 
 ?>
