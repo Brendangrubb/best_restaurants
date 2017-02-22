@@ -51,10 +51,18 @@
             $this->assertEquals('$$', $result);
         }
 
-        // function test_Quadrant()
-        // {
-        //
-        // }
+        function test_Quadrant()
+        {
+            $id = 3;
+            $name = 'dots';
+            $price = 2;
+            $location = 'SE';
+            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+
+            $result = $test_Restaurant->getQuadrant();
+
+            $this->assertEquals('SE', $result);
+        }
 
 
     }
