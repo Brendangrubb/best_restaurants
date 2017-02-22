@@ -29,11 +29,28 @@
             $this->assertEquals('dots', $result);
         }
 
-        // function test_Price()
-        // {
-        //
-        // }
-        //
+        function test_Price()
+        {
+            $id = 3;
+            $name = 'dots';
+            $price = 2;
+            $location = '';
+            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+
+            $result = $test_Restaurant->getPrice();
+            if ($result == 1) {
+                $result = '$';
+            } elseif ($result == 2) {
+                $result = '$$';
+            } elseif ($result == 3) {
+                $result = '$$$';
+            } else {
+                $result = '$$$$';
+            }
+
+            $this->assertEquals('$$', $result);
+        }
+
         // function test_Quadrant()
         // {
         //
