@@ -15,12 +15,20 @@
 
             $this->assertEquals(3, $result);
         }
-        //
-        // function test_getName()
-        // {
-        //
-        // }
-        //
+
+        function test_getName()
+        {
+            $id = 3;
+            $name = 'dots';
+            $price = 0;
+            $location = '';
+            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+
+            $result = $test_Restaurant->getName();
+
+            $this->assertEquals('dots', $result);
+        }
+
         // function test_Price()
         // {
         //
