@@ -5,6 +5,7 @@
     require_once __DIR__.'/../vendor/autoload.php';
 
     $app = new Silex\Application();
+    $app['debug'] = true;
 
     $server = 'mysql:host=localhost:8889;dbname=best_restaurants';
     $username = 'root';
@@ -13,27 +14,12 @@
 
     $app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path'=>__DIR__.'/../views'));
 
+    //HOME PAGE-ADD NEW RESTAURANT OR CUISINE
     $app->get('/', function() use ($app) {
-
         return $app['twig']->render('index.html.twig');
     });
 
-    // $app->get('/cuisines', function() use ($app) {
-    //     $all_cuisines = Cuisine::getAllCuisines();
-    //     return $app['twig']->render('cuisines.html.twig', array('cuisines' => $all_cuisines));
-    // });
-
-    $app->post('/delete', function() use ($app) {
-        Restaurant::deleteAllRestaurants();
-        return $app['twig']->render('restaurants.html.twig');
-    });
-
-    $app->delete('/delete_single_restaurant', function() use ($app) {
-        $restaurant = $_POST['delete_single_restaurant'];
-        $restaurant->deleteRestaurant();
-        return $app['twig']->render('restaurants.html.twig');
-    });
-
+    //RESTAURANT PAGE & ROUTES-LIST AND DELETE RESTAURANTS
     $app->post('/restaurants', function() use ($app) {
         $id = null;
         $name = $_POST['name'];
@@ -47,6 +33,19 @@
         return $app['twig']->render('restaurants.html.twig', array('all_restaurants' => $all_restaurants));
     });
 
+    $app->post('/delete_restaurants', function() use ($app) {
+        Restaurant::deleteAllRestaurants();
+        $all_restaurants = Restaurant::getAllRestaurants();
+        return $app['twig']->render('restaurants.html.twig', array('all_restaurants' => $all_restaurants));
+    });
+
+    $app->delete('/delete_single_restaurant', function() use ($app) {
+        $restaurant = $_POST['delete_single_restaurant'];
+        $restaurant->deleteRestaurant();
+        return $app['twig']->render('restaurants.html.twig');
+    });
+
+    //CUISINE PAGE & ROUTES-LIST AND DELETE CUISINES
     $app->post('/cuisines', function() use ($app) {
         $id = null;
         $type = $_POST['type'];
@@ -57,6 +56,18 @@
         $all_cuisines = Cuisine::getAllCuisines();
         return $app['twig']->render('cuisines.html.twig', array('cuisines' => $all_cuisines));
     });
+
+    $app->post('/delete_cuisines', function() use ($app) {
+        Cuisine::deleteAllCuisines();
+        $all_cuisines = Cuisine::getAllCuisines();
+        return $app['twig']->render('cuisines.html.twig', array('cuisines' => $all_cuisines));
+    });
+
+
+
+
+
+
 
     return $app;
 ?>
