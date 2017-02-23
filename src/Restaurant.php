@@ -77,6 +77,16 @@
             $GLOBALS['DB']->exec("DELETE FROM restaurants;");
         }
 
+        function updateRestaurant($price_to_change, $quadrant_to_change)
+        {
+            if ($price_to_change != null) {
+                $GLOBALS['DB']->exec("UPDATE restaurants SET price = {$price_to_change} WHERE id = {$this->getId()};");
+            }
+            if ($quadrant_to_change != null) {
+                $GLOBALS['DB']->exec("UPDATE restaurants SET quadrant = '{$quadrant_to_change}' WHERE id = {$this->getId()};");
+            }
+        }
+
     }
 
 ?>

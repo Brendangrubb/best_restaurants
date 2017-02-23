@@ -14,11 +14,11 @@
 
     class NewRestaurantTest extends PHPUnit_Framework_TestCase
     {
-        protected function tearDown()
+        function tearDown()
         {
           Restaurant::deleteAllRestaurants();
         }
-        //Getter Tests
+        // Getter Tests
         function test_getId()
         {
             $id = 3;
@@ -140,8 +140,22 @@
 
             $getAll_array = Restaurant::getAllRestaurants();
             $this->assertEquals([], $getAll_array);
-
         }
 
+        function test_updateRestaurant()
+        {
+            $id = null;
+            $name = 'bye and bye';
+            $price = 1;
+            $location = 'NE';
+            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+
+            $test_Restaurant->addRestaurant();
+            $test_Restaurant->updateRestaurant(4, 'SE');
+
+            $getAll_array = Restaurant::getAllRestaurants();
+
+            $this->assertEquals([$test_Restaurant->getId(), 4, 'SE'], [$getAll_array[0]->getId(), $getAll_array[0]->getPrice(), $getAll_array[0]->getQuadrant()]);
+        }
     }
 ?>
