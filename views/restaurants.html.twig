@@ -16,7 +16,15 @@
                 {% for restaurant in all_restaurants %}
                 <li>{{ restaurant.getName }}</li>
                     <ul>
-                        <li>{{ restaurant.getPrice }}</li>
+                        {% if restaurant.getPrice == 1 %}
+                            <li>$</li>
+                            {% elseif restaurant.getPrice == 2 %}
+                            <li>$$</li>
+                            {% elseif restaurant.getPrice == 3 %}
+                            <li>$$$</li>
+                            {% else %}
+                            <li>$$$$</li>
+                        {% endif %}
                         <li>{{ restaurant.getQuadrant }}</li>
                     </ul>
 
