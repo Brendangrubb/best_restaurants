@@ -260,5 +260,29 @@
 
             $this->assertEquals([$test_Restaurant2], $getAll_array);
         }
+
+        function test_FindId()
+        {
+            $id = null;
+            $type = 'Italian';
+            $new_cuisine = new Cuisine($id, $type);
+            $new_cuisine->addCuisine();
+
+            $id = null;
+            $name = 'sweet hereafter';
+            $price = 3;
+            $location = 'SE';
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant = new Restaurant($id, $name, $price, $location, $cuisine_id);
+            $test_Restaurant->addRestaurant();
+
+            $name2 = 'restaurant';
+            $test_Restaurant2 = new Restaurant($id, $name2, $price, $location, $cuisine_id);
+            $test_Restaurant2->addRestaurant();
+
+            $result = Restaurant::find($test_Restaurant->getId());
+
+            $this->assertEquals($test_Restaurant, $result);
+        }
     }
 ?>

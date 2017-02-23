@@ -60,7 +60,7 @@
 
         function addRestaurant()
         {
-            $GLOBALS['DB']->exec("INSERT INTO restaurants (name, price, quadrant, cuisine_id) VALUES ('{$this->getName()}', {$this->getPrice()}, '{$this->getQuadrant()}', '{$this->getCuisineId()}');");
+            $GLOBALS['DB']->exec("INSERT INTO restaurants (name, price, quadrant, cuisine_id) VALUES ('{$this->getName()}', {$this->getPrice()}, '{$this->getQuadrant()}', {$this->getCuisineId()});");
             $this->id = $GLOBALS['DB']->lastInsertID();
         }
 
@@ -103,6 +103,17 @@
             $GLOBALS['DB']->exec("DELETE FROM restaurants WHERE id = {$this->getId()};");
         }
 
+        static function find($search_id)
+        {
+            $found_restaurant = null;
+            $restaurants = Restaurant::getAllRestaurants();
+            foreach($restaurants as $restaurant) {
+                $restaurant_id = $restaurant->getId();
+                if ($restaurant_id == $search_id) {
+                  $found_restaurant = $restaurant;
+                }
+            }
+            return $found_restaurant;
+        }
     }
-
 ?>
