@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h1>Restaurant Sorter</h1>
+                <h3>All Restaurants</h3>
+            </div>
+            {% if restaurants is not empty %}
+            <ul>
+                {% for restaurant in restaurants %}
+                <li>{{ restaurant.getName }}</li>
+                    <ul>
+                        <li>{{ restaurant.getPrice }}</li>
+                        <li>{{ restaurant.getQuadrant }}</li>
+                    </ul>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <a href="/">click here to go back to the main page</a>
+        </div>
+
+    </body>
+</html>

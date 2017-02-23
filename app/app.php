@@ -14,8 +14,18 @@
     $app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path'=>__DIR__.'/../views'));
 
     $app->get('/', function() use ($app) {
+
+        return $app['twig']->render('index.html.twig');
+    });
+
+    $app->get('/cuisines', function() use ($app) {
+        $all_cuisines = Cuisine::getAllCuisines();
+        return $app['twig']->render('cuisines.html.twig', array('cuisines' => $all_cuisines));
+    });
+
+    $app->get('/restaurants', function() use ($app) {
         $all_restaurants = Restaurant::getAllRestaurants();
-        return $app['twig']->render('index.html.twig', array('restaurants' => $all_restaurants));
+        return $app['twig']->render('restaurants.html.twig', array('restaurants' => $all_restaurants));
     });
 
     return $app;

@@ -8,17 +8,48 @@
     <body>
         <div class="container">
             <h1 class="jumbotron">Restaurant Sorter</h1>
-            {% if restaurants is not empty %}
-            <ul>
-                {% for restaurant in restaurants %}
-                <li>{{ restaurant.getName }}</li>
-                    <ul>
-                        <li>{{ restaurant.getPrice }}</li>
-                        <li>{{ restaurant.getQuadrant }}</li>
-                    </ul>
-                {% endfor %}
-            </ul>
-            {% endif %}
+
+            <div class="row">
+                <div class="col-md-6">
+                    <form id="restaurant_form" action="/restaurants">
+                        <div class="form-group">
+                            <label for="name">Restaurant Name</label><br>
+                            <input class="form-control" id="name" type="text" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label><br>
+                            <input type="radio" name="price" value="1">&nbsp;&nbsp;$ &nbsp;&nbsp;
+                            <input type="radio" name="price" value="2">&nbsp;&nbsp;$$ &nbsp;&nbsp;
+                            <input type="radio" name="price" value="3">&nbsp;&nbsp;$$$ &nbsp;&nbsp;
+                            <input type="radio" name="price" value="4">&nbsp;&nbsp;$$$$ &nbsp;&nbsp;
+                        </div>
+                        <div class="form-group">
+                            <label for="quadrant">Neighborhood</label><br>
+                            <select name="quadrant">
+                                <option value="N">N</option>
+                                <option value="NE">NE</option>
+                                <option value="NW">NW</option>
+                                <option value="SE">SE</option>
+                                <option value="SW">SW</option>
+                            </select>
+                        </div>
+                        <button class="btn" type="submit">Add Restaurant!</button>
+                    </form>
+                </div>
+
+                <div class="col-md-6">
+                    <form id="cuisne_form" action="/cuisines">
+                        <div class="form-group">
+                            <label for="type">Add Type of Cuisine</label><br>
+                            <input id="type" type="text" name="type">
+                        </div>
+                        <button class="btn" type="submit">Add Cuisine!</button>
+                    </form>
+                </div>
+            </div>
+            <br>
+
+
         </div>
     </body>
 </html>

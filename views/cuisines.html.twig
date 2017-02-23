@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>All Cuisines</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h1>Restaurant Sorter</h1>
+                <h3>All Cuisines</h3>
+            </div>
+            {% if cuisines is not empty %}
+            <ul>
+                {% for cuisine in cuisines %}
+                <li>{{ cuisine.getType }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <a href="/">click here to go back to the main page</a>
+        </div>
+    </body>
+    </body>
+</html>
