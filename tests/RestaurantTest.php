@@ -6,6 +6,7 @@
     */
 
     require_once __DIR__.'/../src/Restaurant.php';
+    require_once __DIR__.'/../src/Cuisine.php';
 
     $server = 'mysql:host=localhost:8889;dbname=best_restaurants_test';
     $username = 'root';
@@ -22,24 +23,37 @@
         // Getter Tests
         function test_getId()
         {
-            $id = 3;
+            $id = null;
+            $type = 'Italian';
+            $new_cuisine = new Cuisine($id, $type);
+            $new_cuisine->addCuisine();
+
+            $id = null;
             $name = '';
             $price = 0;
             $location = '';
-            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant = new Restaurant($id, $name, $price, $location, $cuisine_id);
+            $test_Restaurant->addRestaurant();
 
             $result = $test_Restaurant->getId();
 
-            $this->assertEquals(3, $result);
+            $this->assertEquals(true, is_numeric($result));
         }
 
         function test_getName()
         {
+            $id = null;
+            $type = 'Italian';
+            $new_cuisine = new Cuisine($id, $type);
+            $new_cuisine->addCuisine();
+
             $id = 3;
             $name = 'dots';
             $price = 0;
             $location = '';
-            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant = new Restaurant($id, $name, $price, $location, $cuisine_id);
 
             $result = $test_Restaurant->getName();
 
@@ -48,11 +62,17 @@
 
         function test_getPrice()
         {
+            $id = null;
+            $type = 'Italian';
+            $new_cuisine = new Cuisine($id, $type);
+            $new_cuisine->addCuisine();
+
             $id = 3;
             $name = 'dots';
             $price = 2;
             $location = '';
-            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant = new Restaurant($id, $name, $price, $location, $cuisine_id);
 
             $result = $test_Restaurant->getPrice();
             if ($result == 1) {
@@ -70,25 +90,57 @@
 
         function test_getQuadrant()
         {
+            $id = null;
+            $type = 'Italian';
+            $new_cuisine = new Cuisine($id, $type);
+            $new_cuisine->addCuisine();
+
             $id = 3;
             $name = 'dots';
             $price = 2;
             $location = 'SE';
-            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant = new Restaurant($id, $name, $price, $location, $cuisine_id);
 
             $result = $test_Restaurant->getQuadrant();
 
             $this->assertEquals('SE', $result);
+        }
+
+        function test_getCuisineId()
+        {
+            $id = null;
+            $type = 'Italian';
+            $new_cuisine = new Cuisine($id, $type);
+            $new_cuisine->addCuisine();
+
+            $id = null;
+            $name = '';
+            $price = 0;
+            $location = '';
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant = new Restaurant($id, $name, $price, $location, $cuisine_id);
+            $test_Restaurant->addRestaurant();
+
+            $result = $test_Restaurant->getCuisineId();
+
+            $this->assertEquals(true, is_numeric($result));
         }
         //End Getter Tests
 
         function test_addRestaurant()
         {
             $id = null;
+            $type = 'Italian';
+            $new_cuisine = new Cuisine($id, $type);
+            $new_cuisine->addCuisine();
+
+            $id = null;
             $name = 'dots';
             $price = 2;
             $location = 'SE';
-            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant = new Restaurant($id, $name, $price, $location, $cuisine_id);
 
             $test_Restaurant->addRestaurant();
 
@@ -103,17 +155,24 @@
             $result_array = array();
 
             $id = null;
+            $type = 'Italian';
+            $new_cuisine = new Cuisine($id, $type);
+            $new_cuisine->addCuisine();
+
+            $id = null;
             $name = 'dots';
             $price = 2;
             $location = 'SE';
-            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant = new Restaurant($id, $name, $price, $location, $cuisine_id);
             $test_Restaurant->addRestaurant();
 
             $id2 = null;
             $name2 = 'jam';
             $price2 = 1;
             $location2 = 'SE';
-            $test_Restaurant2 = new Restaurant($id, $name, $price, $location);
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant2 = new Restaurant($id, $name, $price, $location, $cuisine_id);
             $test_Restaurant2->addRestaurant();
 
             $getAll_array = Restaurant::getAllRestaurants();
@@ -124,17 +183,24 @@
         function test_deleteRestaurants()
         {
             $id = null;
+            $type = 'Italian';
+            $new_cuisine = new Cuisine($id, $type);
+            $new_cuisine->addCuisine();
+
+            $id = null;
             $name = 'dots';
             $price = 2;
             $location = 'SE';
-            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant = new Restaurant($id, $name, $price, $location, $cuisine_id);
             $test_Restaurant->addRestaurant();
 
             $id2 = null;
             $name2 = 'jam';
             $price2 = 1;
             $location2 = 'SE';
-            $test_Restaurant2 = new Restaurant($id, $name, $price, $location);
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant2 = new Restaurant($id, $name, $price, $location, $cuisine_id);
             $test_Restaurant2->addRestaurant();
 
             Restaurant::deleteAllRestaurants();
@@ -146,10 +212,16 @@
         function test_updateRestaurant()
         {
             $id = null;
+            $type = 'Italian';
+            $new_cuisine = new Cuisine($id, $type);
+            $new_cuisine->addCuisine();
+
+            $id = null;
             $name = 'bye and bye';
             $price = 1;
             $location = 'NE';
-            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant = new Restaurant($id, $name, $price, $location, $cuisine_id);
 
             $test_Restaurant->addRestaurant();
             $test_Restaurant->updateRestaurant(4, 'SE');
@@ -162,17 +234,24 @@
         function test_deleteRestaurant()
         {
             $id = null;
+            $type = 'Italian';
+            $new_cuisine = new Cuisine($id, $type);
+            $new_cuisine->addCuisine();
+
+            $id = null;
             $name = 'sweet hereafter';
             $price = 3;
             $location = 'SE';
-            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant = new Restaurant($id, $name, $price, $location, $cuisine_id);
             $test_Restaurant->addRestaurant();
 
             $id2 = null;
             $name2 = 'departure';
             $price2 = 4;
             $location2 = 'SW';
-            $test_Restaurant2 = new Restaurant($id, $name, $price, $location);
+            $cuisine_id = $new_cuisine->getId();
+            $test_Restaurant2 = new Restaurant($id, $name, $price, $location, $cuisine_id);
             $test_Restaurant2->addRestaurant();
 
             $test_Restaurant->deleteRestaurant();

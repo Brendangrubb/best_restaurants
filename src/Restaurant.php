@@ -5,19 +5,28 @@
         private $name;
         private $price;
         private $quadrant;
+        private $cuisine_id;
 
-        function __construct($id = null, $name, $price, $quadrant)
+        function __construct($id = null, $name, $price, $quadrant, $cuisine_id)
         {
             $this->id = $id;
             $this->name = $name;
             $this->price = $price;
             $this->quadrant = $quadrant;
+            $this->cuisine_id = $cuisine_id;
         }
         // ID getter
         function getId()
         {
             return $this->id;
         }
+
+        // CATEGORY ID getter
+        function getCuisineId()
+        {
+            return $this->cuisine_id;
+        }
+
         //Name setter & getter
         function setName($new_name)
         {
@@ -51,7 +60,7 @@
 
         function addRestaurant()
         {
-            $GLOBALS['DB']->exec("INSERT INTO restaurants (name, price, quadrant) VALUES ('{$this->getName()}', {$this->getPrice()}, '{$this->getQuadrant()}');");
+            $GLOBALS['DB']->exec("INSERT INTO restaurants (name, price, quadrant, cuisine_id) VALUES ('{$this->getName()}', {$this->getPrice()}, '{$this->getQuadrant()}', '{$this->getCuisineId()}');");
             $this->id = $GLOBALS['DB']->lastInsertID();
         }
 
@@ -65,7 +74,8 @@
                 $name = $restaurant['name'];
                 $price = $restaurant['price'];
                 $quadrant = $restaurant['quadrant'];
-                $new_restaurant = new Restaurant($id, $name, $price, $quadrant);
+                $cuisine_id = $restaurant['cuisine_id'];
+                $new_restaurant = new Restaurant($id, $name, $price, $quadrant, $cuisine_id);
 
                 array_push($all_restaurants, $new_restaurant);
             }
