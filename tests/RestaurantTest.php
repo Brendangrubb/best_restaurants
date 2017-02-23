@@ -157,5 +157,28 @@
 
             $this->assertEquals([$test_Restaurant->getId(), 4, 'SE'], [$getAll_array[0]->getId(), $getAll_array[0]->getPrice(), $getAll_array[0]->getQuadrant()]);
         }
+
+        function test_deleteRestaurant()
+        {
+            $id = null;
+            $name = 'sweet hereafter';
+            $price = 3;
+            $location = 'SE';
+            $test_Restaurant = new Restaurant($id, $name, $price, $location);
+            $test_Restaurant->addRestaurant();
+
+            $id2 = null;
+            $name2 = 'departure';
+            $price2 = 4;
+            $location2 = 'SW';
+            $test_Restaurant2 = new Restaurant($id, $name, $price, $location);
+            $test_Restaurant2->addRestaurant();
+
+            $test_Restaurant->deleteRestaurant();
+
+            $getAll_array = Restaurant::getAllRestaurants();
+
+            $this->assertEquals([$test_Restaurant2], $getAll_array);
+        }
     }
 ?>
