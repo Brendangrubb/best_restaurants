@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <meta charset="utf-8">
+        <title>Restaurant Sorter</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="jumbotron">Restaurant Sorter</h1>
+            {% if restaurants is not empty %}
+            <ul>
+                {% for restaurant in restaurants %}
+                <li>{{ restaurant.getName }}</li>
+                    <ul>
+                        <li>{{ restaurant.getPrice }}</li>
+                        <li>{{ restaurant.getQuadrant }}</li>
+                    </ul>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </body>
+</html>
