@@ -18,14 +18,44 @@
         return $app['twig']->render('index.html.twig');
     });
 
-    $app->get('/cuisines', function() use ($app) {
-        $all_cuisines = Cuisine::getAllCuisines();
-        return $app['twig']->render('cuisines.html.twig', array('cuisines' => $all_cuisines));
+    // $app->get('/cuisines', function() use ($app) {
+    //     $all_cuisines = Cuisine::getAllCuisines();
+    //     return $app['twig']->render('cuisines.html.twig', array('cuisines' => $all_cuisines));
+    // });
+
+    $app->post('/delete', function() use ($app) {
+        Restaurant::deleteAllRestaurants();
+        return $app['twig']->render('restaurants.html.twig');
     });
 
-    $app->get('/restaurants', function() use ($app) {
+    $app->delete('/delete_single_restaurant', function() use ($app) {
+        $restaurant = $_POST['delete_single_restaurant'];
+        $restaurant->deleteRestaurant();
+        return $app['twig']->render('restaurants.html.twig');
+    });
+
+    $app->post('/restaurants', function() use ($app) {
+        $id = null;
+        $name = $_POST['name'];
+        $price = $_POST['price'];
+        $quadrant = $_POST['quadrant'];
+        $new_restaurant = new Restaurant($id, $name, $price, $quadrant);
+
+        $new_restaurant->addRestaurant();
+
         $all_restaurants = Restaurant::getAllRestaurants();
-        return $app['twig']->render('restaurants.html.twig', array('restaurants' => $all_restaurants));
+        return $app['twig']->render('restaurants.html.twig', array('all_restaurants' => $all_restaurants));
+    });
+
+    $app->post('/cuisines', function() use ($app) {
+        $id = null;
+        $type = $_POST['type'];
+        $new_cuisine = new Cuisine($id, $type);
+
+        $new_cuisine->addCuisine();
+
+        $all_cuisines = Cuisine::getAllCuisines();
+        return $app['twig']->render('cuisines.html.twig', array('cuisines' => $all_cuisines));
     });
 
     return $app;

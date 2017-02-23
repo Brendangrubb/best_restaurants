@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <meta charset="utf-8">
         <title></title>
     </head>
@@ -10,19 +11,28 @@
                 <h1>Restaurant Sorter</h1>
                 <h3>All Restaurants</h3>
             </div>
-            {% if restaurants is not empty %}
+            {% if all_restaurants is not empty %}
             <ul>
-                {% for restaurant in restaurants %}
+                {% for restaurant in all_restaurants %}
                 <li>{{ restaurant.getName }}</li>
                     <ul>
                         <li>{{ restaurant.getPrice }}</li>
                         <li>{{ restaurant.getQuadrant }}</li>
                     </ul>
+
+                    <form action="/delete_single_restaurant" method="post">
+                        <input name="_method" type="hidden" value="delete">
+                        <button type="submit" name="delete_single_restaurant" value='{{ restaurant.getId }}'>Delete</button>
+                    </form>
                 {% endfor %}
             </ul>
             {% endif %}
 
-            <a href="/">click here to go back to the main page</a>
+            <form action="/delete" method="post">
+                <button class="btn" type="submit">Delete All Restaurants</button>
+            </form>
+
+            <p><a href="/">Click here</a> to go back to the main page</p>
         </div>
 
     </body>

@@ -11,39 +11,46 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <form id="restaurant_form" action="/restaurants">
+                    <form id="restaurant_form" action="/restaurants" method="post">
                         <div class="form-group">
                             <label for="name">Restaurant Name</label><br>
-                            <input class="form-control" id="name" type="text" name="name">
+                            <input class="form-control" id="name" type="text" name="name" required>
                         </div>
-                        <div class="form-group">
-                            <label for="price">Price</label><br>
-                            <input type="radio" name="price" value="1">&nbsp;&nbsp;$ &nbsp;&nbsp;
-                            <input type="radio" name="price" value="2">&nbsp;&nbsp;$$ &nbsp;&nbsp;
-                            <input type="radio" name="price" value="3">&nbsp;&nbsp;$$$ &nbsp;&nbsp;
-                            <input type="radio" name="price" value="4">&nbsp;&nbsp;$$$$ &nbsp;&nbsp;
+                        <div class="radio">
+                            <label>
+                            <input type="radio" name="price" value=1 checked>$
+                            </label>
+                            <label>
+                            <input type="radio" name="price" value=2>$$
+                            </label>
+                            <label>
+                            <input type="radio" name="price" value=3>$$$
+                            </label>
+                            <label>
+                            <input type="radio" name="price" value=4>$$$$
+                            </label>
                         </div>
                         <div class="form-group">
                             <label for="quadrant">Neighborhood</label><br>
                             <select name="quadrant">
-                                <option value="N">N</option>
-                                <option value="NE">NE</option>
-                                <option value="NW">NW</option>
-                                <option value="SE">SE</option>
-                                <option value="SW">SW</option>
+                                <option name="quadrant" value="N">N</option>
+                                <option name="quadrant" value="NE">NE</option>
+                                <option name="quadrant" value="NW">NW</option>
+                                <option name="quadrant" value="SE">SE</option>
+                                <option name="quadrant" value="SW">SW</option>
                             </select>
                         </div>
-                        <button class="btn" type="submit">Add Restaurant!</button>
+                        <button class="btn btn-info" type="submit">Add Restaurant!</button>
                     </form>
                 </div>
 
                 <div class="col-md-6">
-                    <form id="cuisne_form" action="/cuisines">
+                    <form id="cuisine_form" action="/cuisines" method="post">
                         <div class="form-group">
                             <label for="type">Add Type of Cuisine</label><br>
-                            <input id="type" type="text" name="type">
+                            <input class="form-control" id="type" type="text" name="type" required>
                         </div>
-                        <button class="btn" type="submit">Add Cuisine!</button>
+                        <button class="btn btn-danger" type="submit">Add Cuisine!</button>
                     </form>
                 </div>
             </div>
