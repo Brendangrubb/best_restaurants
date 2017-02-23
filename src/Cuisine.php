@@ -43,7 +43,7 @@
             foreach ($returned_cuisines as $cuisine) {
                 $id = $cuisine['id'];
                 $type = $cuisine['type'];
-                $new_cuisine = new Cuisine($id, $cuisine);
+                $new_cuisine = new Cuisine($id, $type);
 
                 array_push($all_cuisines, $new_cuisine);
             }
@@ -53,8 +53,13 @@
 
         function addCuisine()
         {
-            $GLOBALS['DB']->exec("INSERT INTO cuisine (type) VALUES ('{$this->getType()}');");
+            $GLOBALS['DB']->exec("INSERT INTO cuisines (type) VALUES ('{$this->getType()}');");
             $this->id = $GLOBALS['DB']->lastInsertID();
+        }
+
+        function deleteCuisine()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM cuisines WHERE id = {$this->getId()};");
         }
     }
 ?>

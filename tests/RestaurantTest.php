@@ -16,7 +16,8 @@
     {
         function tearDown()
         {
-          Restaurant::deleteAllRestaurants();
+            Cuisine::deleteAllCuisines();
+            Restaurant::deleteAllRestaurants();
         }
         // Getter Tests
         function test_getId()
