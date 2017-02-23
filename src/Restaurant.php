@@ -69,6 +69,7 @@
 
                 array_push($all_restaurants, $new_restaurant);
             }
+
             return $all_restaurants;
         }
 
