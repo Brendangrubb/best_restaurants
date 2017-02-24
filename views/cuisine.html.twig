@@ -9,14 +9,24 @@
             <h1>{{ cuisine.getType }}</h1>
 
 
-                {% if restaurants is not empty %}
-                    <p>Here are the restaurants:</p>
+            {% if restaurants is not empty %}
+            <ul>
+                {% for restaurant in restaurants %}
+                <li>{{ restaurant.getName }}</li>
                     <ul>
-                        {% for restaurant in restaurants %}
-                        <li>{{ restaurant.getName }}</li>
-                        {% endfor %}
+                        {% if restaurant.getPrice == 1 %}
+                            <li>$</li>
+                            {% elseif restaurant.getPrice == 2 %}
+                            <li>$$</li>
+                            {% elseif restaurant.getPrice == 3 %}
+                            <li>$$$</li>
+                            {% else %}
+                            <li>$$$$</li>
+                        {% endif %}
+                        <li>{{ restaurant.getQuadrant }}</li>
                     </ul>
-                {% endif %}
+                {% endfor %}
+            {% endif %}
 
                     <form id="restaurant_form" action="/restaurants" method="post">
                         <input id="cuisine_id" name="cuisine_id" type="hidden" value="{{ cuisine.getId() }}">
@@ -51,7 +61,13 @@
                         </div>
                         <button class="btn btn-info" type="submit">Add Restaurant!</button>
                     </form>
+                    <br>
+                    <form action="/delete_restaurants" method="post">
+                        <button class="btn" type="submit">Delete All Restaurants</button>
+                    </form>
+                    <br>
 
+                    <h5><a href="/">Add</a> another Cuisine!</h5>
 
         </div>
 
