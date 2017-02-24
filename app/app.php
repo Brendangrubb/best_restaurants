@@ -5,6 +5,7 @@
     require_once __DIR__.'/../vendor/autoload.php';
 
     $app = new Silex\Application();
+
     $app['debug'] = true;
 
     $server = 'mysql:host=localhost:8889;dbname=best_restaurants';
@@ -14,60 +15,41 @@
 
     $app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path'=>__DIR__.'/../views'));
 
-    //HOME PAGE-ADD NEW RESTAURANT OR CUISINE
+
+
+    //INDEX ROUTES
+
     $app->get('/', function() use ($app) {
-        return $app['twig']->render('index.html.twig');
+        return $app['twig']->render('index.html.twig', array('cuisines' => Cuisine::getAllCuisines()));
     });
 
-    //RESTAURANT PAGE & ROUTES-LIST AND DELETE RESTAURANTS
-    $app->post('/restaurants', function() use ($app) {
-        $id = null;
-        $name = $_POST['name'];
-        $price = $_POST['price'];
-        $quadrant = $_POST['quadrant'];
-        $new_restaurant = new Restaurant($id, $name, $price, $quadrant);
-
-        $new_restaurant->addRestaurant();
-
-        $all_restaurants = Restaurant::getAllRestaurants();
-        return $app['twig']->render('restaurants.html.twig', array('all_restaurants' => $all_restaurants));
-    });
-
-    $app->post('/delete_restaurants', function() use ($app) {
-        Restaurant::deleteAllRestaurants();
-        $all_restaurants = Restaurant::getAllRestaurants();
-        return $app['twig']->render('restaurants.html.twig', array('all_restaurants' => $all_restaurants));
-    });
-
-    $app->delete('/delete_single_restaurant', function() use ($app) {
-        $restaurant = $_POST['delete_single_restaurant'];
-        $restaurant->deleteRestaurant();
+    $app->get('/restaurants', function() use ($app) {
         return $app['twig']->render('restaurants.html.twig');
     });
 
-    //CUISINE PAGE & ROUTES-LIST AND DELETE CUISINES
     $app->post('/cuisines', function() use ($app) {
-        $id = null;
-        $type = $_POST['type'];
-        $new_cuisine = new Cuisine($id, $type);
+        $cuisine = new Cuisine($id = null, $_POST['type']);
+        $cuisine->addCuisine();
 
-        $new_cuisine->addCuisine();
-
-        $all_cuisines = Cuisine::getAllCuisines();
-        return $app['twig']->render('cuisines.html.twig', array('cuisines' => $all_cuisines));
+        return $app['twig']->render('index.html.twig', array('cuisines' => Cuisine::getAllCuisines()));
     });
 
-    $app->post('/delete_cuisines', function() use ($app) {
-        Cuisine::deleteAllCuisines();
-        $all_cuisines = Cuisine::getAllCuisines();
-        return $app['twig']->render('cuisines.html.twig', array('cuisines' => $all_cuisines));
+    $app->get('/cuisine/{id}', function($id) use ($app) {
+        $cuisine = Cuisine::find($id);
+        return $app['twig']->render('cuisine.html.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getAllRestaurants()));
     });
 
+    $app->post('/restaurants', function() use ($app) {
+        $name = $_POST['name'];
+        $price = $_POST['price'];
+        $quadrant = $_POST['quadrant'];
+        $cuisine_id = $_POST['cuisine_id'];
+        $restaurant = new Restaurant($id = null, $name, $price, $quadrant, $cuisine_id);
+        $restaurant->addRestaurant();
+        $cuisine = Cuisine::find($cuisine_id);
 
-
-
-
-
+        return $app['twig']->render('cuisine.html.twig', array('cuisine' => $cuisine, 'restaurants' => $restaurant->getAllRestaurants()));
+    });
 
     return $app;
 ?>

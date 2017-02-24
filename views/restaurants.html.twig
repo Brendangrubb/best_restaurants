@@ -2,45 +2,11 @@
 <html>
     <head>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <meta charset="utf-8">
-        <title></title>
+        <title>Best Restaurants</title>
     </head>
     <body>
         <div class="container">
-            <div class="jumbotron">
-                <h1>Restaurant Sorter</h1>
-                <h3>All Restaurants</h3>
-            </div>
-            {% if all_restaurants is not empty %}
-            <ul>
-                {% for restaurant in all_restaurants %}
-                <li>{{ restaurant.getName }}</li>
-                    <ul>
-                        {% if restaurant.getPrice == 1 %}
-                            <li>$</li>
-                            {% elseif restaurant.getPrice == 2 %}
-                            <li>$$</li>
-                            {% elseif restaurant.getPrice == 3 %}
-                            <li>$$$</li>
-                            {% else %}
-                            <li>$$$$</li>
-                        {% endif %}
-                        <li>{{ restaurant.getQuadrant }}</li>
-                    </ul>
-
-                    <form action="/delete_single_restaurant" method="post">
-                        <input name="_method" type="hidden" value="delete">
-                        <button type="submit" name="delete_single_restaurant" value='{{ restaurant.getId }}'>Delete</button>
-                    </form>
-                {% endfor %}
-            </ul>
-            {% endif %}
-
-            <form action="/delete_restaurants" method="post">
-                <button class="btn" type="submit">Delete All Restaurants</button>
-            </form>
-            <br>
-            <h4><a href="/">Click here</a> to go add another</h4>
+            
         </div>
 
     </body>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <title>Best Restaurants</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>{{ cuisine.getType }}</h1>
+
+
+                {% if restaurants is not empty %}
+                    <p>Here are the restaurants:</p>
+                    <ul>
+                        {% for restaurant in restaurants %}
+                        <li>{{ restaurant.getName }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                    <form id="restaurant_form" action="/restaurants" method="post">
+                        <input id="cuisine_id" name="cuisine_id" type="hidden" value="{{ cuisine.getId() }}">
+
+                        <div class="form-group">
+                            <label for="name">Restaurant Name</label><br>
+                            <input class="form-control" id="name" type="text" name="name" required>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="price" value=1 checked>$
+                            </label>
+                            <label>
+                                <input type="radio" name="price" value=2>$$
+                            </label>
+                            <label>
+                                <input type="radio" name="price" value=3>$$$
+                            </label>
+                            <label>
+                                <input type="radio" name="price" value=4>$$$$
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="quadrant">Neighborhood</label><br>
+                            <select name="quadrant">
+                                <option name="quadrant" value="N">N</option>
+                                <option name="quadrant" value="NE">NE</option>
+                                <option name="quadrant" value="NW">NW</option>
+                                <option name="quadrant" value="SE">SE</option>
+                                <option name="quadrant" value="SW">SW</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-info" type="submit">Add Restaurant!</button>
+                    </form>
+
+
+        </div>
+
+    </body>
+</html>

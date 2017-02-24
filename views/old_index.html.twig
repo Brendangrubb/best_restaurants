@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <meta charset="utf-8">
+        <title>Restaurant Sorter</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="jumbotron">Restaurant Sorter</h1>
+
+            <div class="row">
+                <!-- ADD RESTAURANT FORM -->
+                <div class="col-md-6">
+                    <form id="restaurant_form" action="/restaurants" method="post">
+                        <div class="form-group">
+                            <label for="name">Restaurant Name</label><br>
+                            <input class="form-control" id="name" type="text" name="name" required>
+                        </div>
+                        <div class="radio">
+                            <label>
+                            <input type="radio" name="price" value=1 checked>$
+                            </label>
+                            <label>
+                            <input type="radio" name="price" value=2>$$
+                            </label>
+                            <label>
+                            <input type="radio" name="price" value=3>$$$
+                            </label>
+                            <label>
+                            <input type="radio" name="price" value=4>$$$$
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="quadrant">Neighborhood</label><br>
+                            <select name="quadrant">
+                                <option name="quadrant" value="N">N</option>
+                                <option name="quadrant" value="NE">NE</option>
+                                <option name="quadrant" value="NW">NW</option>
+                                <option name="quadrant" value="SE">SE</option>
+                                <option name="quadrant" value="SW">SW</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-info" type="submit">Add Restaurant!</button>
+                    </form>
+                </div>
+
+                <!-- ADD CUISINE FORM -->
+                <div class="col-md-6">
+                    <form id="cuisine_form" action="/cuisines" method="post">
+                        <div class="form-group">
+                            <label for="type">Add Type of Cuisine</label><br>
+                            <input class="form-control" id="type" type="text" name="type" required>
+                        </div>
+                        <button class="btn btn-danger" type="submit">Add Cuisine!</button>
+                    </form>
+                </div>
+            </div>
+            <br>
+
+
+        </div>
+    </body>
+</html>

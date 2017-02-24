@@ -77,5 +77,19 @@
                 }
             return $restaurants;
         }
+
+        static function find($search_id)
+        {
+            $found_cuisine = null;
+            $cuisines = Cuisine::getAllCuisines();
+            foreach($cuisines as $cuisine) {
+                $cuisine_id = $cuisine->getId();
+                if ($cuisine_id == $search_id) {
+                  $found_cuisine = $cuisine;
+                }
+            }
+
+            return $found_cuisine;
+        }
     }
 ?>
